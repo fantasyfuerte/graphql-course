@@ -34,7 +34,7 @@ const resolvers = {
       return users.find((user) => user.id == id);
     },
   },
-  Mutations: {
+  Mutation: {
     createUser: (parent, args) => {
       const { name, age, isMarried } = args;
       const newUser = {
