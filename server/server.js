@@ -26,9 +26,32 @@ const typeDefs = `
   }
 `;
 
-const resolvers = {};
+const resolvers = {
+  Query: {
+    getUsers: () => users,
+    getUserById: (parent, args) => {
+      const id = args.id;
+      return users.find((user) => user.id == id);
+    },
+  },
+  Mutations: {
+    createUser: (parent, args) => {
+      const { name, age, isMarried } = args;
+      const newUser = {
+        id: (users.lenght + 1).toString(),
+        name,
+        age,
+        isMarried,
+      };
+      users.push(newUser);
+    },
+  },
+};
 
-const server = new ApolloServer({});
+const server = new ApolloServer({
+  typeDefs,
+  resolvers,
+});
 
 const { url } = await startStandaloneServer(server, {
   listen: { port: 4000 },
