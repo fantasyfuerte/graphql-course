@@ -1,27 +1,7 @@
-import { useQuery, useMutation, gql } from "@apollo/client";
+import { useQuery, useMutation } from "@apollo/client";
 import { useState } from "react";
 import { SlRefresh } from "react-icons/sl";
-
-const GET_USERS = gql`
-  query GetUsers {
-    getUsers {
-      id
-      name
-      age
-      isMarried
-    }
-  }
-`;
-
-const GET_USER_BY_ID = gql`
-  query GetUserById($id: ID!) {
-    getUserById(id: $id) {
-      name
-      age
-      id
-    }
-  }
-`;
+import { GET_USER_BY_ID, GET_USERS } from "./lib/querys";
 
 type User = {
   name?: string;
@@ -32,7 +12,6 @@ type User = {
 
 function App() {
   const [id, setId] = useState(1);
-
   const {
     data: getUsersData,
     error: getUsersError,
