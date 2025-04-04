@@ -23,8 +23,11 @@ const GET_USER_BY_ID = gql`
 
 const CREATE_USER = gql`
   mutation CreateUser($name: String!, $age: Int!, $isMarried: Boolean!) {
-    createUser(name: $name, age: $age, isMarried: $isMarried)
+    createUser(name: $name, age: $age, isMarried: $isMarried) {
+      name
+      id
+    }
   }
-`
+`;
 
 export { GET_USERS, GET_USER_BY_ID, CREATE_USER };
