@@ -1,4 +1,4 @@
-import { gql } from "@apollo/client";
+import { gql, useQuery, useMutation } from "@apollo/client";
 
 const GET_USERS = gql`
   query GetUsers {
@@ -30,4 +30,22 @@ const CREATE_USER = gql`
   }
 `;
 
-export { GET_USERS, GET_USER_BY_ID, CREATE_USER };
+const useGetUsers = () => {
+  const { data, error, loading } = useQuery(GET_USERS);
+  return { data, error, loading };
+};
+
+const useGetUserById = (id: number) => {
+  const { data, error, loading } = useQuery(GET_USER_BY_ID, {
+    variables: { id: id },
+  });
+  return { data, error, loading };
+};
+
+const useCreateUser = (name: string, age: number, isMarried: boolean) => {
+  useMutation(CREATE_USER, {
+    variables: { name: name, age: age, isMarried: isMarried },
+  });
+};
+
+export { useCreateUser, useGetUserById, useGetUsers };
