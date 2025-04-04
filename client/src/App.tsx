@@ -12,8 +12,35 @@ const GET_USERS = gql`
   }
 `;
 
+const GET_USER_BY_ID = gql`
+  query GetUserById($id: ID!) {
+    getUserById(id: $id) {
+      name
+      age
+      id
+    }
+  }
+`;
+
+type User = {
+  name?: string;
+  id?: number;
+  isMarried?: boolean;
+  age?: number;
+};
+
 function App() {
-  const { data, error, loading } = useQuery(GET_USERS);
+  const {
+    data: getUsersData,
+    error: getUsersError,
+    loading: getUsersLoading,
+  } = useQuery(GET_USERS);
+
+  const {
+    data: getUserByIdData,
+    error: getUserByIdError,
+    loading: getUserByIdLoading,
+  } = useQuery(GET_USER_BY_ID);
 
   return (
     <main>
@@ -23,17 +50,17 @@ function App() {
       <div>
         <h4 className="text-xl text-center">Users:</h4>
       </div>
-      {loading ? (
+      {getUsersLoading ? (
         <div className="animate-spin">
           <SlRefresh size={36} />
         </div>
-      ) : error ? (
+      ) : getUsersError ? (
         <p className="text-xl text-center opacity-70 font-semibold mt-6">
-          Error: {error.message}
+          Error: {getUsersError.message}
         </p>
       ) : (
         <table className="">
-          {data.getUsers.map((user) => (
+          {getUsersData.getUsers.map((user: User) => (
             <li key={user.id}>
               <h4>{user.name}</h4>
               <p>{user.age}</p>
