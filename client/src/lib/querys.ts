@@ -42,10 +42,9 @@ const useGetUserById = (id: number) => {
   return { data, error, loading };
 };
 
-const useCreateUser = (name: string, age: number, isMarried: boolean) => {
-  useMutation(CREATE_USER, {
-    variables: { name: name, age: age, isMarried: isMarried },
-  });
+const useCreateUser = () => {
+  const [createUser, { data, error, loading }] = useMutation(CREATE_USER);
+  return { createUser, data, error, loading };
 };
 
 export { useCreateUser, useGetUserById, useGetUsers };
