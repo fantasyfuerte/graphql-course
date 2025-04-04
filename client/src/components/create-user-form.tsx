@@ -6,13 +6,17 @@ function CreateUserForm() {
   const [age, setAge] = useState(0);
   const [isMarried, setIsMarried] = useState(false);
 
-  function HandleCreateUser() {
+  function HandleCreateUser(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
     const { createUser } = useCreateUser();
     createUser({ variables: { name, age, isMarried } });
   }
 
   return (
-    <form className="w-1/2 mx-auto flex flex-col gap-2 bg-slate-950 p-4 rounded-lg items-center">
+    <form
+      className="w-1/2 mx-auto flex flex-col gap-2 bg-slate-950 p-4 rounded-lg items-center"
+      onSubmit={HandleCreateUser}
+    >
       <input
         className="bg-slate-800 rounded-lg p-2 w-full"
         type="text"
@@ -31,10 +35,7 @@ function CreateUserForm() {
         placeholder="isMarried"
         onChange={(e) => setIsMarried(e.target.checked)}
       />
-      <button
-        className="bg-slate-800 hover:bg-slate-700 rounded-lg p-2 w-full"
-        onClick={HandleCreateUser}
-      >
+      <button className="bg-slate-800 hover:bg-slate-700 rounded-lg p-2 w-full">
         Create user
       </button>
     </form>
