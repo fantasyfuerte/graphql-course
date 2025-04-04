@@ -32,15 +32,15 @@ function App() {
           Error: {error.message}
         </p>
       ) : (
-        <ul>
-          {data.getUsers.map((user) => {
+        <table className="">
+          {data.getUsers.map((user) => (
             <li key={user.id}>
               <h4>{user.name}</h4>
               <p>{user.age}</p>
               <p>It's {!user.isMarried && "not"} married</p>
-            </li>;
-          })}
-        </ul>
+            </li>
+          ))}
+        </table>
       )}
     </main>
   );
