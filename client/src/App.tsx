@@ -1,4 +1,5 @@
 import { useQuery, useMutation, gql } from "@apollo/client";
+import { useState } from "react";
 import { SlRefresh } from "react-icons/sl";
 
 const GET_USERS = gql`
@@ -30,6 +31,8 @@ type User = {
 };
 
 function App() {
+  const [id, setId] = useState(1);
+
   const {
     data: getUsersData,
     error: getUsersError,
@@ -40,7 +43,7 @@ function App() {
     data: getUserByIdData,
     error: getUserByIdError,
     loading: getUserByIdLoading,
-  } = useQuery(GET_USER_BY_ID, { variables: { id: 1 } });
+  } = useQuery(GET_USER_BY_ID, { variables: { id: id } });
 
   return (
     <main>
@@ -75,7 +78,7 @@ function App() {
           Error: {getUsersError.message}
         </p>
       ) : (
-        <table className="">
+        <ul className="">
           {getUsersData.getUsers.map((user: User) => (
             <li key={user.id}>
               <h4>{user.name}</h4>
@@ -83,8 +86,9 @@ function App() {
               <p>It's {!user.isMarried && "not"} married</p>
             </li>
           ))}
-        </table>
+        </ul>
       )}
+      <button onClick={() => setId(2)}>change user</button>
     </main>
   );
 }
