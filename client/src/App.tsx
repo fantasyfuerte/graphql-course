@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { SlRefresh } from "react-icons/sl";
 import { useGetUsers, useGetUserById } from "./lib/queries";
+import CreateUserForm from "./components/create-user-form";
 
 type User = {
   name?: string;
@@ -68,6 +69,7 @@ function App() {
         </ul>
       )}
       <button onClick={() => setId(2)}>change user</button>
+      <CreateUserForm />
     </main>
   );
 }
