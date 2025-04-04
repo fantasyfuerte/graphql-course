@@ -1,7 +1,6 @@
-import { useQuery, useMutation } from "@apollo/client";
 import { useState } from "react";
 import { SlRefresh } from "react-icons/sl";
-import { GET_USER_BY_ID, GET_USERS } from "./lib/querys";
+import { useGetUsers, useCreateUser, useGetUserById } from "./lib/querys";
 
 type User = {
   name?: string;
@@ -16,13 +15,13 @@ function App() {
     data: getUsersData,
     error: getUsersError,
     loading: getUsersLoading,
-  } = useQuery(GET_USERS);
+  } = useGetUsers();
 
   const {
     data: getUserByIdData,
     error: getUserByIdError,
     loading: getUserByIdLoading,
-  } = useQuery(GET_USER_BY_ID, { variables: { id: id } });
+  } = useGetUserById(id);
 
   return (
     <main>
@@ -49,7 +48,7 @@ function App() {
         <h4 className="text-xl text-center">Users:</h4>
       </div>
       {getUsersLoading ? (
-        <div className="animate-spin">
+        <div className="animate-spin w-fit mx-auto">
           <SlRefresh size={36} />
         </div>
       ) : getUsersError ? (
@@ -68,6 +67,24 @@ function App() {
         </ul>
       )}
       <button onClick={() => setId(2)}>change user</button>
+      <form>
+        <input
+          type="text"
+          placeholder="name"
+          onChange={(e) => console.log(e.target.value)}
+        />
+        <input
+          type="number"
+          placeholder="age"
+          onChange={(e) => console.log(e.target.value)}
+        />
+        <input
+          type="checkbox"
+          placeholder="isMarried"
+          onChange={(e) => console.log(e.target.checked)}
+        />
+        <button>Create user</button>
+      </form>
     </main>
   );
 }
