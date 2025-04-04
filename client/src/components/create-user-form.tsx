@@ -5,10 +5,10 @@ function CreateUserForm() {
   const [name, setName] = useState("");
   const [age, setAge] = useState(0);
   const [isMarried, setIsMarried] = useState(false);
+  const { createUser } = useCreateUser();
 
   function HandleCreateUser(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    const { createUser } = useCreateUser();
     createUser({ variables: { name, age, isMarried } });
   }
 
