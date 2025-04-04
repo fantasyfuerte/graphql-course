@@ -40,13 +40,29 @@ function App() {
     data: getUserByIdData,
     error: getUserByIdError,
     loading: getUserByIdLoading,
-  } = useQuery(GET_USER_BY_ID);
+  } = useQuery(GET_USER_BY_ID, { variables: { id: 1 } });
 
   return (
     <main>
       <h1 className="text-center text-3xl my-12">
         Fetching data from Apollo Graphql server
       </h1>
+      <div>
+        <h4 className="text-center">Choosen user:</h4>
+        {getUserByIdLoading ? (
+          <div className="animate-spin">
+            <SlRefresh size={36} />
+          </div>
+        ) : getUserByIdError ? (
+          <p className="text-xl text-center opacity-70 font-semibold mt-6">
+            Error: {getUserByIdError.message}
+          </p>
+        ) : (
+          <p className="text-xl text-center opacity-70 font-semibold mt-6">
+            {getUserByIdData.getUserById.name}
+          </p>
+        )}
+      </div>
       <div>
         <h4 className="text-xl text-center">Users:</h4>
       </div>
