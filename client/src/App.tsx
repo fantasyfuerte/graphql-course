@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { SlRefresh } from "react-icons/sl";
-import { useGetUsers, useCreateUser, useGetUserById } from "./lib/querys";
+import { useGetUsers, useCreateUser, useGetUserById } from "./lib/queries";
 
 type User = {
   name?: string;
